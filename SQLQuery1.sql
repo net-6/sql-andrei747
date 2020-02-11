@@ -1,3 +1,44 @@
+
+--2--Create a table called Director with following columns: FirstName, LastName, Nationality and Birth date. Insert 5 rows into it.
+USE [PoliIasi]
+GO
+
+SELECT [DirectorID]--primary key
+      ,[FirstName]
+      ,[LastName]
+      ,[Nationality]
+      ,[Birthdate]
+  FROM [dbo].[Director]
+GO
+---3--Delete the director with id = 3
+DELETE FROM Director WHERE DirectorID = 3
+--4--Create a table called Movie with following columns: DirectorId, Title, ReleaseDate, Rating and Duration. Each movie has a director. Insert some rows into it
+USE [PoliIasi]
+GO
+
+SELECT [DirectorID]---foreign key
+      ,[Title]
+      ,[Releasedate]
+      ,[Rating]
+      ,[Duration]
+  FROM [dbo].[Movie]
+GO
+--5--Update all movies that have a rating lower than 10.
+update Movie
+set Rating = 7
+where Rating < 10
+---6---Create a table called Actor with following columns: FirstName, LastName, Nationality, Birth date and PopularityRating. Insert some rows into it.
+USE [PoliIasi]
+GO
+
+SELECT [FirstName]
+      ,[LastName]
+      ,[Nationality]
+      ,[Birthdate]
+      ,[PopularityRating]
+  FROM [dbo].[Actor]
+GO
+
 --7-Which is the movie with the lowest rating?
 select Title, Rating
 from Movie 
