@@ -1,43 +1,35 @@
+--1---Create a database with the name of your choice
+create database PoliIasi;
 
 --2--Create a table called Director with following columns: FirstName, LastName, Nationality and Birth date. Insert 5 rows into it.
-USE [PoliIasi]
-GO
-
-SELECT [DirectorID]--primary key
-      ,[FirstName]
-      ,[LastName]
-      ,[Nationality]
-      ,[Birthdate]
-  FROM [dbo].[Director]
-GO
+create Table Director (
+DirectorID int not null,
+FirstName varchar(255) not null,
+LastName varchar(255) not null,
+Nationality varchar(255) not null,
+Birthdate date null,
+Primary key(DirectorID));
 ---3--Delete the director with id = 3
 DELETE FROM Director WHERE DirectorID = 3
 --4--Create a table called Movie with following columns: DirectorId, Title, ReleaseDate, Rating and Duration. Each movie has a director. Insert some rows into it
-USE [PoliIasi]
-GO
-
-SELECT [DirectorID]---foreign key
-      ,[Title]
-      ,[Releasedate]
-      ,[Rating]
-      ,[Duration]
-  FROM [dbo].[Movie]
-GO
+create Table Movie (
+DirectorID int not null,
+Title varchar(255) not null,
+Releasedate date not null,
+Rating int not null,
+Duration datetime not null,
+Foreign key(DirectorID) references Director(DirectorID));
 --5--Update all movies that have a rating lower than 10.
 update Movie
 set Rating = 7
 where Rating < 10
 ---6---Create a table called Actor with following columns: FirstName, LastName, Nationality, Birth date and PopularityRating. Insert some rows into it.
-USE [PoliIasi]
-GO
-
-SELECT [FirstName]
-      ,[LastName]
-      ,[Nationality]
-      ,[Birthdate]
-      ,[PopularityRating]
-  FROM [dbo].[Actor]
-GO
+create Table Actor (
+FirstName varchar(255) not null,
+LastName varchar(255) not null,
+Nationality varchar(255) not null,
+Birthdate date not null,
+PopularityRating int not null);
 
 --7-Which is the movie with the lowest rating?
 select Title, Rating
@@ -85,10 +77,45 @@ from Movie
   as
   select Title, Rating + 1, DirectorID from Movie 
   WHERE DirectorID = 4
+
   --13--Create a table called MovieHistory with a column for Id and a column for Message. 
     --Create a trigger that will add a new entry in the MovieHistory table when a row from Movie's table is updated.
-  create table MovieHistory ---in progresss
+  create table MovieHistory(
+  ID INT NOT NULL,
+  Message varchar(255) not null,
+  DirectorID int not null,
+Title varchar(255) not null,
+Releasedate date not null,
+Rating int not null,
+Duration datetime not null,
+);
+create trigger after_Movie_insert
+on Movie
+after insert
+as
+begin
+set nocount on;
+INSERT INTO MovieHistory(--nu recunoaste tabelul cu history---in progress
+        ID ,
+  Message ,
+  DirectorID,
+Title,
+Releasedate ,
+Rating ,
+Duration 
+)
+    SELECT
+        i.DirectorID ,
+Title ,
+Releasedate ,
+Rating ,
+Duration ,
+'ins'
+    FROM
+        inserted i
+end
 
+--14--Create a cursor that will print on the screen all movies with a title shorter than 10 characters
 
   
 
