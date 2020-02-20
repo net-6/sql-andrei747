@@ -9,6 +9,15 @@ LastName varchar(255) not null,
 Nationality varchar(255) not null,
 Birthdate date null,
 Primary key(DirectorID));
+insert into Director
+values(1, 'Andrei', 'Cristea', 'Roman', '1980-05-03'),
+(2, 'Silviu', 'Pantiru', 'Roman', '1982-09-23'),
+(3, 'Ion', 'Crinescu', 'Roman', '1960-08-03'),
+(4, 'Musa', 'Dembele', 'Belgian', '1994-10-12'),
+(5, 'Gheorghe', 'Popescu', 'Roman', '1990-11-18');
+
+
+
 ---3--Delete the director with id = 3
 DELETE FROM Director WHERE DirectorID = 3
 --4--Create a table called Movie with following columns: DirectorId, Title, ReleaseDate, Rating and Duration. Each movie has a director. Insert some rows into it
@@ -19,6 +28,15 @@ Releasedate date not null,
 Rating int not null,
 Duration datetime not null,
 Foreign key(DirectorID) references Director(DirectorID));
+
+insert into Movie 
+values (1, 'Batman', '2019-05-09',10,'02:33'),
+(4, 'Flori de mar', '2019-09-29',6,'01:43'),
+(4, 'Papuci de casa', '2019-11-02',8,'01:53'),
+(1, 'Family Guy', '2019-10-11',10,'01:59'),
+(2, 'Batman', '2019-05-09',10,'02:33'),
+(5, 'Biscuiti', '2019-05-09',10,'02:33'),
+(1, 'Sunny day', '2019-05-09',10,'02:33');
 --5--Update all movies that have a rating lower than 10.
 update Movie
 set Rating = 7
@@ -31,6 +49,14 @@ Nationality varchar(255) not null,
 Birthdate date not null,
 PopularityRating int not null);
 
+
+
+insert into Actor
+values(1, 'Robert','De Niro', 'American','1943-07-17', 7),
+(2, 'Christian','Bale', 'Englez','1974-01-30', 10),
+(3, 'Leonardo','Di Caprio', 'American','1974-11-11', 10),
+(4, 'Jennifer','Lawrence', 'American','1990-08-15', 10),
+(5, 'Serban','Pavlu', 'Roman','1974-06-29', 8);
 --7-Which is the movie with the lowest rating?
 select Title, Rating
 from Movie 
@@ -95,16 +121,17 @@ after insert
 as
 begin
 set nocount on;
-INSERT INTO MovieHistory(--nu recunoaste tabelul cu history---in progress
-        ID ,
-  Message ,
+INSERT INTO MovieHistory
+   
   DirectorID,
 Title,
 Releasedate ,
 Rating ,
-Duration 
+Duration,
+ID
 )
     SELECT
+	
         i.DirectorID ,
 Title ,
 Releasedate ,
@@ -114,6 +141,14 @@ Duration ,
     FROM
         inserted i
 end
+
+insert into Movie 
+values (
+1,
+'Gol dupa gol',
+'2019/07/02',
+8,'01:45');
+
 
 --14--Create a cursor that will print on the screen all movies with a title shorter than 10 characters
 
